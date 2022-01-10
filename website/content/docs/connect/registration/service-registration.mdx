@@ -26,7 +26,7 @@ proxy = {
   <additional proxy parameters> = "<additional parameter values>"
 }
 port = <port where services can discover and connect to proxied services>
-``` 
+```
 
 </CodeBlockConfig>
 <CodeBlockConfig>
@@ -109,7 +109,7 @@ The following example includes values for all availble options when registering 
 <CodeTabs heading="Example that includes all configuration options when registering a proxy instance">
 <CodeBlockConfig>
 
-```hcl 
+```hcl
 kind = "connect-proxy"
 name = "redis-proxy"
 port = 8181
@@ -191,9 +191,9 @@ You can configure the service mesh proxy to create listeners for upstream servic
 
 ### Upstream Configuration Examples
 
-Upstreams support multiple destination types. The following examples include information about each implmentation. 
+Upstreams support multiple destination types. The following examples include information about each implmentation.
 
--> **Snake case**: The examples in this topic use `snake_case` because the syntax is supported in configuration files and API registrations. See [Service Definition Parameter Case](/docs/agent/services#service-definition-parameter-case) for additional information.
+-> **Snake case**: The examples in this topic use `snake_case` because the syntax is supported in configuration files and API registrations. See [Service Definition Parameter Case](/docs/discovery/services#service-definition-parameter-case) for additional information.
 
 <CodeTabs heading="Example service destination upstream">
 <CodeBlockConfig>
@@ -291,7 +291,7 @@ You can configure which mode a proxy operates in by specifying `"direct"` or `"t
 * `transparent`: In this mode, inbound and outbound application traffic is captured and redirected through the proxy. This mode does not enable the traffic redirection. It directs Consul to configure Envoy as if traffic is already being redirected.
 * `direct`: In this mode, the proxy's listeners must be dialed directly by the local application and other proxies.
 
-You can also specify an empty string (`""`), which configures the proxy to operate in the default mode. The default mode is inherited from parent parameters in the following order of precedence: 
+You can also specify an empty string (`""`), which configures the proxy to operate in the default mode. The default mode is inherited from parent parameters in the following order of precedence:
 
 1. Proxy service's `Proxy` configuration
 1. The `service-defaults` configuration for the service.
@@ -306,7 +306,7 @@ The following examples show additional configuration for transparent proxies.
 Added in v1.10.0.
 
 -> Note that `snake_case` is used here as it works in both [config file and API
-registrations](/docs/agent/services#service-definition-parameter-case).
+registrations](/docs/discovery/services#service-definition-parameter-case).
 
 #### Configure a proxy listener for outbound traffic on port 22500
 
@@ -332,7 +332,7 @@ registrations](/docs/agent/services#service-definition-parameter-case).
 The following examples show all possible mesh gateway configurations.
 
 -> Note that `snake_case` is used here as it works in both [config file and API
-registrations](/docs/agent/services#service-definition-parameter-case).
+registrations](/docs/discovery/services#service-definition-parameter-case).
 
 #### Using a Local/Egress Gateway in the Local Datacenter
 
@@ -390,7 +390,7 @@ non-Connect-enabled applications to contact an HTTP endpoint.
 Some examples include: exposing a `/metrics` path for Prometheus or `/healthz` for kubelet liveness checks.
 
 -> Note that `snake_case` is used here as it works in both [config file and API
-registrations](/docs/agent/services#service-definition-parameter-case).
+registrations](/docs/discovery/services#service-definition-parameter-case).
 
 #### Expose listeners in Envoy for HTTP and GRPC checks registered with the local Consul agent
 
