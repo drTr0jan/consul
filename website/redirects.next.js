@@ -119,18 +119,13 @@ module.exports = [
     permanent: true,
   },
   {
-    source: '/docs/connect/gateways/mesh-gateway',
+    source: '/docs/connect/gateways/mesh-gateways?',
     destination:
       '/docs/connect/gateways/mesh-gateway/service-to-service-traffic-datacenters',
     permanent: true,
   },
   {
-    source: '/docs/connect/ingress(_|-)gateway',
-    destination: '/docs/connect/gateways/ingress-gateway',
-    permanent: true,
-  },
-  {
-    source: '/docs/connect/ingress-gateways',
+    source: '/docs/connect/ingress(_|-)gateways?',
     destination: '/docs/connect/gateways/ingress-gateway',
     permanent: true,
   },
@@ -263,11 +258,6 @@ module.exports = [
   {
     source: '/docs/glossary',
     destination: '/docs/install/glossary',
-    permanent: true,
-  },
-  {
-    source: '/docs/connect/gateways/mesh-gateways',
-    destination: '/docs/connect/gateways/mesh-gateway',
     permanent: true,
   },
   {
