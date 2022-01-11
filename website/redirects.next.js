@@ -1210,16 +1210,6 @@ module.exports = [
     permanent: true,
   },
   {
-    source: '/docs/partnerships',
-    destination: '/docs/integrate/partnerships',
-    permanent: true,
-  },
-  {
-    source: '/docs/k8s/installation/overview',
-    destination: '/docs/k8s/installation/install',
-    permanent: true,
-  },
-  {
     source: '/docs/k8s/installation/multi-cluster/overview',
     destination: '/docs/k8s/installation/multi-cluster',
     permanent: true,
