@@ -119,13 +119,13 @@ module.exports = [
     permanent: true,
   },
   {
-    source: '/docs/connect/gateways/mesh-gateways?',
+    source: '/docs/connect/gateways/mesh-(gateways?)',
     destination:
       '/docs/connect/gateways/mesh-gateway/service-to-service-traffic-datacenters',
     permanent: true,
   },
   {
-    source: '/docs/connect/ingress(_|-)gateways?',
+    source: '/docs/connect/ingress(_|-gateways?)',
     destination: '/docs/connect/gateways/ingress-gateway',
     permanent: true,
   },
