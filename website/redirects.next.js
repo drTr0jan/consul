@@ -1225,11 +1225,6 @@ module.exports = [
     permanent: true,
   },
   {
-    source: '/docs/k8s/ambassador',
-    destination: '/docs/k8s/connect/ambassador',
-    permanent: true,
-  },
-  {
     source: '/docs/agent/config-entries/:path',
     destination: '/docs/connect/config-entries/:path*',
     permanent: true,
