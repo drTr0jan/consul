@@ -17,16 +17,18 @@ Consul API Gateway is an implementation of the Kubernetes Gateway [API Specifica
 Your datacenter must meet the following requirements prior to configuring the Consul API Gateway:
 
 - A Kubernetes cluster must be running
-- Consul 1.11.1+
+- Consul 1.11.2+
 
 ## Installation
 
-1. Create a values file for your Consul server agents that contains the following parameters:
+1. Create a values file for your Consul helm chart definition that contains the following parameters:
+
+<CodeBlockConfig hideClipboard filename="values.yaml">
 
    ```yaml
    global:
      name: consul
-     image: 'hashicorp/consul:1.11.1'
+     image: 'hashicorp/consul:1.11.2'
      tls:
        enabled: true
    connectInject:
@@ -41,13 +43,16 @@ Your datacenter must meet the following requirements prior to configuring the Co
 $ helm install consul hashicorp/consul --version 0.39.0 -f values.yaml
 ```
 
-The following components will be installed: - Gateway controller - CRDs required by the Kubernetes Gateway API specification - `kustomize` manifests for completing the installation
+The following components will be installed: 
+- Gateway controller 
+- CRDs required by the Kubernetes Gateway API specification 
+- `kustomize` manifests for completing the installation
 
 1. After `helm` installs Consul API Gateway packages, issue the following commands to apply the API gateway to your Kubernetes cluster.
 
 ```shell-session
-$ kubectl apply -k "github.com/hashicorp/consul-api-gateway/config/crd?ref=v0.1.0-techpreview"
-$ kubectl apply -k "github.com/hashicorp/consul-api-gateway/config?ref=v0.1.0-techpreview"
+$ kubectl apply -k "github.com/hashicorp/consul-api-gateway/config/crd?ref=v0.1.0-beta"
+$ kubectl apply -k "github.com/hashicorp/consul-api-gateway/config?ref=v0.1.0-beta"
 ```
 
 ## Usage
@@ -89,7 +94,7 @@ You can also issue the `version` command to print the Consul API Gateway version
 
 ```shell-session
 $ ./consul-api-gateway version
-consul-api-gateway 0.1.0-dev
+consul-api-gateway 0.1.0
 ```
 
 ## Configuration
@@ -151,7 +156,7 @@ In the example included the [Gateway](#gateway) description, a listener named `h
 
 ### Route
 
-Routes are independent configuration objects that are associated with a specific listener.
+Routes are independent configuration objects that are associated with specific listeners.
 Use the `kind: HTTPRoute` option to declare a route and use the `spec` option to specify the route details.
 The following example creates a route named `example-route` associated with a listener defined in `example-gateway`.
 
