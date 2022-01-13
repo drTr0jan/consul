@@ -929,6 +929,9 @@ func (s *Server) blockingQuery(queryOpts structs.QueryOptionsCompat, queryMeta s
 		var ws memdb.WatchSet
 		err := fn(ws, s.fsm.State())
 		s.setQueryMeta(queryMeta, queryOpts.GetToken())
+		if errors.Is(err, errNotFound) {
+			return nil
+		}
 		return err
 	}
 
@@ -955,6 +958,8 @@ func (s *Server) blockingQuery(queryOpts structs.QueryOptionsCompat, queryMeta s
 	// set the gauge directly to the new value of s.blockingQueries
 	metrics.SetGauge([]string{"rpc", "queries_blocking"}, float32(queriesBlocking))
 
+	var notFound bool
+
 	for {
 		if queryOpts.GetRequireConsistent() {
 			if err := s.consistentRead(); err != nil {
@@ -974,7 +979,10 @@ func (s *Server) blockingQuery(queryOpts structs.QueryOptionsCompat, queryMeta s
 
 		err := fn(ws, state)
 		s.setQueryMeta(queryMeta, queryOpts.GetToken())
-		if err != nil {
+		switch {
+		case errors.Is(err, errNotFound):
+			// no-op
+		case err != nil:
 			return err
 		}
 
@@ -991,7 +999,17 @@ func (s *Server) blockingQuery(queryOpts structs.QueryOptionsCompat, queryMeta s
 		}
 
 		if queryMeta.GetIndex() > minQueryIndex {
+			if !notFound || !errors.Is(err, errNotFound) {
+				return nil
+			}
+		}
+
+		if ctx.Err() != nil {
 			return nil
+		}
+
+		if errors.Is(err, errNotFound) {
+			notFound = true
 		}
 
 		// block up to the timeout if we don't see anything fresh.
@@ -1011,6 +1029,8 @@ func (s *Server) blockingQuery(queryOpts structs.QueryOptionsCompat, queryMeta s
 		}
 	}
 }
+
+var errNotFound = fmt.Errorf("no data found for query")
 
 // setQueryMeta is used to populate the QueryMeta data for an RPC call
 //
